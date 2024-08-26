@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bidirectional Translator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            min-height: 50px;
+        }
+        select {
+            margin-top: 10px;
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>RGZVZQLZ Translator</h1>
+    <textarea id="inputText" rows="6" cols="50" placeholder="Enter text here..."></textarea><br>
+    <select id="direction">
+        <option value="toCustom">English to RGZVZQLZ</option>
+        <option value="toEnglish">RGZVZQLZ to English</option>
+    </select><br>
+    <button onclick="translateText()">Translate</button>
+    <div id="output"></div>
+
+    <script>
+        function translateText() {
+            const inputText = document.getElementById("inputText").value;
+            const direction = document.getElementById("direction").value;
+
+            const toCustomMap = {
+                'A': 'Z', 'B': 'A', 'C': 'B', 'D': 'C', 'E': 'D', 
+                'F': 'E', 'G': 'F', 'H': 'G', 'I': 'H', 'J': 'I', 
+                'K': 'J', 'L': 'K', 'M': 'L', 'N': 'M', 'O': 'N', 
+                'P': 'O', 'Q': 'P', 'R': 'Q', 'S': 'R', 'T': 'S', 
+                'U': 'T', 'V': 'U', 'W': 'V', 'X': 'W', 'Y': 'X', 
+                'Z': 'Y'
+            };
+
+            const toEnglishMap = {};
+            for (let key in toCustomMap) {
+                toEnglishMap[toCustomMap[key]] = key;  // Reverse mapping
+            }
+
+            let outputText = '';
+            const translationMap = direction === "toCustom" ? toCustomMap : toEnglishMap;
+
+            for (let char of inputText.toUpperCase()) {
+                if (translationMap[char]) {
+                    outputText += translationMap[char];
+                } else {
+                    outputText += char;  // Leave non-alphabet characters unchanged
+                }
+            }
+
+            document.getElementById("output").textContent = outputText;
+        }
+    </script>
+</body>
+</html>
